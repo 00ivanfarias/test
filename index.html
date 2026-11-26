@@ -1619,77 +1619,78 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
-        
+
+
         // Plans Swiper
 
         (() => {
-        
+
             const plansSwiperElement = document.querySelector(".plans-swiper");
-        
+
             if (!plansSwiperElement || typeof Swiper === "undefined") return;
-        
+
             const plansPagination = plansSwiperElement.querySelector(
                 ".plans-swiper-pagination"
             );
-        
+
             const plansNext = plansSwiperElement.querySelector(
                 ".plans-swiper-next"
             );
-        
+
             const plansPrev = plansSwiperElement.querySelector(
                 ".plans-swiper-prev"
             );
-        
+
             // Update controls
-            function updatePlansControls() {
-        
-                const hasOverflow = !plansSwiper.isLocked;
-        
+            function updatePlansControls(swiper) {
+
+                const hasOverflow = !swiper.isLocked;
+
                 if (plansPagination) {
                     plansPagination.classList.toggle("!hidden", !hasOverflow);
                 }
-        
+
                 if (plansNext) {
                     plansNext.classList.toggle("!hidden", !hasOverflow);
                 }
-        
+
                 if (plansPrev) {
                     plansPrev.classList.toggle("!hidden", !hasOverflow);
                 }
-        
+
             }
-        
+
             const plansSwiper = new Swiper(plansSwiperElement, {
-        
+
                 slidesPerView: 1,
                 slidesPerGroup: 1,
                 centeredSlides: true,
                 centeredSlidesBounds: false,
                 spaceBetween: 16,
-        
+
                 slidesOffsetBefore: 0,
                 slidesOffsetAfter: 0,
-        
+
                 speed: 450,
                 rewind: true,
                 loop: false,
                 grabCursor: true,
                 watchOverflow: true,
-        
+
                 pagination: {
                     el: plansPagination,
                     clickable: true,
                     enabled: true,
                 },
-        
+
                 navigation: {
                     nextEl: plansNext,
                     prevEl: plansPrev,
                     enabled: true,
                 },
-        
+
                 breakpoints: {
-        
+
                     640: {
                         slidesPerView: 1,
                         slidesPerGroup: 1,
@@ -1699,7 +1700,7 @@
                         slidesOffsetBefore: 0,
                         slidesOffsetAfter: 0,
                     },
-        
+
                     768: {
                         slidesPerView: 2,
                         slidesPerGroup: 1,
@@ -1714,7 +1715,7 @@
                             enabled: true
                         },
                     },
-        
+
                     1024: {
                         slidesPerView: 4,
                         slidesPerGroup: 4,
@@ -1729,20 +1730,32 @@
                             enabled: false
                         },
                     },
-        
+
                 },
-        
+
                 on: {
-                    init: updatePlansControls,
-                    resize: updatePlansControls,
-                    update: updatePlansControls,
-                    slideChange: updatePlansControls,
+
+                    init: function () {
+                        updatePlansControls(this);
+                    },
+
+                    resize: function () {
+                        updatePlansControls(this);
+                    },
+
+                    update: function () {
+                        updatePlansControls(this);
+                    },
+
+                    slideChange: function () {
+                        updatePlansControls(this);
+                    },
+
                 },
-        
+
             });
-        
-        })();
-    
+
+})();
 
 
         // Mobile navigation
